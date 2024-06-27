@@ -1,6 +1,6 @@
 package com.kimhyunsu.todolist.dto;
 
-import com.kimhyunsu.todolist.constant.Authority;
+import com.kimhyunsu.todolist.constant.UserRole;
 import com.kimhyunsu.todolist.entity.Member;
 import lombok.Builder;
 import lombok.Data;
@@ -18,12 +18,12 @@ public class MemberJoinRequest {
     private String password;
     private List<String> roles;
 
-    public Member toEntity(PasswordEncoder passwordEncoder) {
+    public Member toEntity(PasswordEncoder passwordEncoder) { // 회원가입 시 사용
         return Member.builder()
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .userName(userName)
-                .roles(Collections.singletonList("ROLE_USER"))
+                .userRole(UserRole.USER)
                 .build();
     }
     public UsernamePasswordAuthenticationToken toAuthentication() {

@@ -22,7 +22,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -33,9 +33,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     // 해당하는 user 데이터가 존재한다면 UserDetails 객체로 만들어서 리턴
     private UserDetails createUserDetails(Member member) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAuthorities().toString());
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + member.getUserRole().name());
+        log.warn("사용자 role : {}", grantedAuthority);
+        log.warn("사용자 role : {}", grantedAuthority);
+        log.warn("사용자 role : {}", grantedAuthority);
+
         return User.builder()
-                .username(member.getUsername())
+                .username(member.getUserName())
                 .password(member.getPassword())
                 .roles(String.valueOf(Collections.singleton(grantedAuthority)))
                 .build();

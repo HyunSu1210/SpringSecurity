@@ -1,11 +1,13 @@
 package com.kimhyunsu.todolist.config;
 
+import com.kimhyunsu.todolist.constant.UserRole;
 import com.kimhyunsu.todolist.jwt.JwtAccessDeniedHandler;
 import com.kimhyunsu.todolist.jwt.JwtAuthenticationEntryPoint;
 import com.kimhyunsu.todolist.jwt.JwtAuthenticationFilter;
 import com.kimhyunsu.todolist.service.CustomUserDetailsService;
 import com.kimhyunsu.todolist.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,8 +46,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/members/**").permitAll()
-                        .requestMatchers("/review/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/review/**").hasRole(UserRole.USER.name())
+                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class)

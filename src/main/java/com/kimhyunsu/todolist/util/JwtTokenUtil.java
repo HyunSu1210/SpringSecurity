@@ -50,7 +50,7 @@ public class JwtTokenUtil {
                 .getBody().getExpiration().before(new Date());
     }
 
-    // 존재하는 토큰인지 검증
+    // 유저의 role 검색
     public static String getAuthorities(String token, String secretKey) {
         String str = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token)
                 .getBody().get("roles", String.class);
