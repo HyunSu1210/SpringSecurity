@@ -1,6 +1,7 @@
 package com.kimhyunsu.todolist.config;
 
 import com.kimhyunsu.todolist.constant.UserRole;
+import com.kimhyunsu.todolist.dto.TokenDto;
 import com.kimhyunsu.todolist.jwt.JwtAccessDeniedHandler;
 import com.kimhyunsu.todolist.jwt.JwtAuthenticationEntryPoint;
 import com.kimhyunsu.todolist.jwt.JwtAuthenticationFilter;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Component
+@Slf4j
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;

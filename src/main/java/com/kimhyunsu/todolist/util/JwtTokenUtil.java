@@ -54,7 +54,7 @@ public class JwtTokenUtil {
     public static String getAuthorities(String token, String secretKey) {
         String str = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token)
                 .getBody().get("roles", String.class);
-        log.warn("권한은? {}", str);
+        log.warn("얻은 role? {}", str);
         return str;
     }
 

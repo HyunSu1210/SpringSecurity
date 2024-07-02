@@ -34,14 +34,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     // 해당하는 user 데이터가 존재한다면 UserDetails 객체로 만들어서 리턴
     private UserDetails createUserDetails(Member member) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + member.getUserRole().name());
-        log.warn("사용자 role : {}", grantedAuthority);
-        log.warn("사용자 role : {}", grantedAuthority);
-        log.warn("사용자 role : {}", grantedAuthority);
+        log.warn("사용자 role1 : {}", grantedAuthority);
 
         return User.builder()
                 .username(member.getUserName())
                 .password(member.getPassword())
-                .roles(String.valueOf(Collections.singleton(grantedAuthority)))
+                .roles(member.getUserRole().name())
                 .build();
     }
 }
